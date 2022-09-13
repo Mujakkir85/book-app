@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { Link } from 'react-router-dom';
 
-const pages = ['books', 'Blog', 'About', 'contact'];
+const pages = ['books', 'Blog', 'AddBlog', 'contact'];
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
