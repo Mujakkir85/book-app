@@ -74,8 +74,10 @@ const AddBlog = ({addData, addPost}) => {
                 }}
             >
                 {addData?.map((data)=>
-                <Paper elevation={3}>
-                  <Typography>  {data.authorName} </Typography>
+                <Paper elevation={3} >
+                  <Typography >Author Name:  {data.authorName} </Typography>
+                  <Typography>Book Name:  {data.bookName} </Typography>
+                  <Typography>Book Description:  {data.description} </Typography>
                 </Paper>
                     )}
             </Box>
