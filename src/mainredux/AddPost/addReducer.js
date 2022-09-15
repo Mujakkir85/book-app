@@ -4,15 +4,16 @@ const initialState = {
     posts: []
 }
 
-const postReducer = (state = initialState, action) =>{
+const addReducer = (state = initialState, action) =>{
     switch (action.type){
         case ADD_POST:
             return{
                 ...state,
-                posts: [action.payload, ...state.posts]
+                posts: [action.payload, ...state.posts,]
+                //posts: [...state.posts, action.payload]
             }
         default: return state
     }
 }
 
-export default postReducer
+export default addReducer
