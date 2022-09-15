@@ -1,9 +1,13 @@
 import React from 'react';
 import {useState} from "react";
-import {TextField, Button, Container, Stack, Typography} from "@mui/material";
+import {TextField, Button, Container, Stack, Typography, Paper} from "@mui/material";
+import {fetchPosts} from "../../mainredux/AllPosts/postAction";
+import {addPost} from "../../mainredux/AddPost/addAction";
+import {connect} from "react-redux";
+import Box from "@mui/material/Box";
 
-const AddBlog = () => {
-    const [blogdata, setBlogdata] = useState([]);
+const AddBlog = ({addData, addPost}) => {
+    //const [blogdata, setBlogdata] = useState([]);
     let authorName, bookName, description
 
     const handleSubmit=(event)=>{
@@ -16,15 +20,15 @@ const AddBlog = () => {
              bookName: event.target.bookName.value,
              description: event.target.description.value,
          }
-         setBlogdata([...blogdata, newdata]);
-        authorName = '';
-        bookName = '';
-        description = '';
-         console.log(authorName, bookName, description)
+         //setBlogdata([...blogdata, newdata])
+         addPost(newdata)
+
+         event.target.authorName.value = '';
+         event.target.bookName.value = '';
+         event.target.description.value = '';
     }
-
-
-    console.log(blogdata)
+    console.log('store data', addData)
+    //console.log(blogdata)
 
     return (
         <Container sx={{mt: '20px'}}>
@@ -57,8 +61,38 @@ const AddBlog = () => {
                 <Button type='submit' fullWidth variant="contained">Submit</Button>
                 </Stack>
             </form>
+
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    '& > :not(style)': {
+                        m: 1,
+                        width: 300,
+                        height: 300,
+                    },
+                }}
+            >
+                {addData?.map((data)=>
+                <Paper elevation={3}>
+                  <Typography>  {data.authorName} </Typography>
+                </Paper>
+                    )}
+            </Box>
         </Container>
     );
 };
 
-export default AddBlog;
+
+const mapStateToProps = state =>{
+    return{
+        addData : state.addPost.posts
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        addPost: (data) => dispatch(addPost(data))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (AddBlog);
