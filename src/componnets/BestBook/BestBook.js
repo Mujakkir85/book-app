@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 import {
     Card,
     CardMedia,
@@ -8,23 +9,29 @@ import {
     Button,
     Grid,
     Box,
-    Rating
+    Rating, Modal, TextField, Stack
 } from "@mui/material";
 import { connect } from 'react-redux';
 import { fetchPosts } from '../../mainredux/AllPosts/postAction';
 
-
 const BestBook = ({ postData, fetchPosts }) => {
 
-    // const [books, setBooks] = useState([])
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        borderRadius: 3,
+        boxShadow: 34,
+        p: 4,
+    };
+        const [open, setOpen] = React.useState(false);
+        const handleOpen = () => setOpen(true);
+        const handleClose = () => setOpen(false);
 
-    // useEffect(() => {
-    //     fetch('data.json')
-    //         .then(response => response.json())
-    //         .then(data => setBooks(data.books))
-    // }, [])
-
-    useEffect(() => {
+        useEffect(() => {
         fetchPosts()
     }, [])
 
@@ -68,6 +75,39 @@ const BestBook = ({ postData, fetchPosts }) => {
                     )
                 }
             </Grid>
+
+
+            <Box sx={{display:'flex', justifyContent:'center', mt:4}}>
+                <Button sx={{fontSize:'18px', fontWeight:'bold'}} variant='outlined' onClick={handleOpen}>Give Feed Back</Button>
+                <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box sx={style}>
+                        {/*<Typography id="modal-modal-title" variant="h6" component="h2">*/}
+                        {/*    Text in a modal*/}
+                        {/*</Typography>*/}
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                            <Stack spacing={2}>
+                            <TextField id="outlined-basic" label="First-Name" variant="outlined" />
+                            <TextField id="outlined-basic" label="Last-Name" variant="outlined" />
+                            <TextField id="outlined-basic" label="Book-Name" variant="outlined" />
+                            <TextField id="outlined-basic" label="Author-Name" variant="outlined" />
+                                <Box sx={{display:'flex', justifyContent:'center'}}>
+                                <Button
+                                    sx={{width:'40%', fontWeight:'bold'}}
+                                    variant="outlined">
+                                    SUBMIT
+                                </Button>
+                                </Box>
+                            </Stack>
+                        </Typography>
+                    </Box>
+                </Modal>
+            </Box>
+
         </Box>
     );
 };
