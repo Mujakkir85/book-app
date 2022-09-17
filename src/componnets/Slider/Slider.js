@@ -43,7 +43,7 @@ const Item = ({ name, description, img }) => {
                     Explore More
                 </Button>
             </Box>
-            <img style={{ height: '550px', width: '100%' }}
+            <img style={{ height: '550px', width: '100%', objectFit: 'cover' }}
                 src={`${img}`}
                 alt={'{image}'}
                 loading="lazy"
